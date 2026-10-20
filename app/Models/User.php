@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -42,4 +44,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /** ユーザーが持つレビューの情報を取得 */
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    /** ユーザーが持つお気に入り書籍の取得 */
+    public function favorites(): BelongsToMany
+    {
+        return $this->belongsToMany(Book::class, 'favorites');
+    }
+
+    /** ユーザーが持ついいね情報取得 */
+    public function reviewLikes(): BelongsToMany
+    {
+        return $this->belongsToMany(Review::class, 'review_likes');
+    }
 }
