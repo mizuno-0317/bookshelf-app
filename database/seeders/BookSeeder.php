@@ -62,12 +62,12 @@ class BookSeeder extends Seeder
                 'description' => '夏目漱石の代表作品',
             ],
             [
-                'title' => 'リーダブルコード',
-                'author' => 'Dustin Boswell ',
-                'published_at' => '2012-06-23',
-                'isbn' => '9784873115658 ',
-                'genres' => ['技術書'],
-                'description' => 'リーダーシップについて書かれた書籍',
+                'title' => 'サピエンス全史',
+                'author' => 'ユヴァル・ノア・ハラリ ',
+                'published_at' => '2016-09-08',
+                'isbn' => '9784309226712',
+                'genres' => ['歴史','科学'],
+                'description' => 'サピエンスの歴史について書かれた書籍'
             ],
             [
                 'title' => 'Clean Code',
@@ -124,14 +124,15 @@ class BookSeeder extends Seeder
                     'image_url' => 'https://placehold.co/200x300/e2e8f0/475569?text='.($index + 1),
                 ]
             );
+
+            // ジャンルIDを取り出す
+            $genreIds = [];
+            foreach ($data['genres'] as $genreName) {
+                $genreIds[] = $genres[$genreName]->id;
+            }
+
+            $book->genres()->sync($genreIds);
         }
 
-        // ジャンルIDを取り出す
-        $genreIds = [];
-        foreach ($data['genres'] as $genreName) {
-            $genreIds[] = $genres[$genreName]->id;
-        }
-
-        $book->genres()->sync($genreIds);
     }
 }
