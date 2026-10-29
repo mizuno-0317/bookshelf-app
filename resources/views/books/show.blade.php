@@ -30,7 +30,7 @@
 
                                 <!-- お気に入りボタン -->
                                 @auth
-                                    @if(Auth::user()->favoriteBooks->contains($book->id))
+                                    @if(Auth::user()->favorites->contains($book->id))
                                         <form action="{{ route('favorites.toggle', $book) }}" method="POST" novalidate>
                                             @csrf
                                             <button type="submit" class="text-red-500 hover:text-red-700" title="お気に入りから削除">

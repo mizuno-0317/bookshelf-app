@@ -32,7 +32,7 @@ class ReviewLikeSeeder extends Seeder
                 : [];
 
             // レビューといいねするユーザーを紐づける
-            $review->reviewLikes()->syncWithoutDetaching($userIds);
+            $review->likedByUsers()->syncWithoutDetaching($userIds);
 
         }
     }
