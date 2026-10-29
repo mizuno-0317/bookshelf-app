@@ -15,7 +15,7 @@ class Book extends Model
         'user_id',
         'title',
         'author',
-        'published_at',
+        'published_date',
         'image_url',
         'isbn',
         'description',
@@ -37,5 +37,11 @@ class Book extends Model
     public function reviews(): HasMany
     {
         return $this->hasMany(Review::class);
+    }
+
+    /** 書籍を登録したユーザー情報を取得する */
+    public function users(): belongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

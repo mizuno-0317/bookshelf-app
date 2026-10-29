@@ -62,4 +62,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Review::class, 'review_likes');
     }
+
+    /** ユーザーが登録した書籍情報を取得 */
+    public function books(): HasMany
+    {
+        return $this->hasMany(Book::class);
+    }
 }
