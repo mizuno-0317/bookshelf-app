@@ -10,10 +10,10 @@ class FavoriteController extends Controller
     {
         $books = auth()->user()
             ->favorites()
-            ->withAvg('reviews','rating')
+            ->withAvg('reviews', 'rating')
             ->simplePaginate(10);
 
-        return view('favorites.index',compact('books'));
+        return view('favorites.index', compact('books'));
     }
 
     public function toggle(Book $book)
