@@ -20,38 +20,36 @@ class ReviewController extends Controller
             'user_id' => $request->user()->id,
         ]);
 
-        return redirect()->route('book.show', $book);
+        return redirect()->route('books.show', $book);
 
     }
 
     /**レビュー編集画面表示 */
-    public function edit(Book $book, Review $review)
+    public function edit(Review $review)
     {
-        abort_unless($review->book_id === $book->id, 404);
         $this->authorize('edit', $review);
 
         return view('reviews.edit', compact('review'));
     }
 
     /**レビューの更新 */
-    public function update(UpdateReviewRequest $request, Book $book, Review $review)
+    public function update(UpdateReviewRequest $request, Review $review)
     {
-        abort_unless($review->book_id === $book->id, 404);
+
         $this->authorize('update', $review);
         $validated = $request->validated();
         $review->update($validated);
 
-        return redirect()->route('book.show', $book);
+        return redirect()->route('books.show', $review->book_id);
     }
 
     /**レビューの削除 */
-    public function destroy(Book $book, Review $review)
+    public function destroy(Review $review)
     {
-        abort_unless($review->book_id === $book->id, 404);
         $this->authorize('delete', $review);
         $review->delete();
 
-        return redirect()->route('books.show', $book);
+        return redirect()->route('books.show', $review->book_id);
 
     }
 }
