@@ -11,6 +11,7 @@ class FavoriteController extends Controller
         $books = auth()->user()
             ->favorites()
             ->withAvg('reviews', 'rating')
+            ->orderByPivot('created_at', 'desc')
             ->simplePaginate(10);
 
         return view('favorites.index', compact('books'));
